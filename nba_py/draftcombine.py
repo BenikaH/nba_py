@@ -1,14 +1,11 @@
 from nba_py import _api_scrape, _get_json
-from nba_py import constants
+from nba_py.constants import *
 
 
 class Summary:
     _endpoint = 'draftcombinestats'
 
-    def __init__(
-            self,
-            league_id=constants.League.Default,
-            season=constants.CURRENT_SEASON):
+    def __init__(self, league_id=League.Default, season=CURRENT_SEASON):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'LeagueID': league_id,
                                       'SeasonYear': season})
@@ -20,10 +17,7 @@ class Summary:
 class DrillResults:
     _endpoint = 'draftcombinedrillresults'
 
-    def __init__(
-            self,
-            league_id=constants.League.Default,
-            season=constants.CURRENT_SEASON):
+    def __init__(self, league_id=League.Default, season=CURRENT_SEASON):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'LeagueID': league_id,
                                       'SeasonYear': season})
@@ -35,10 +29,7 @@ class DrillResults:
 class SpotShooting:
     _endpoint = 'draftcombinespotshooting'
 
-    def __init__(
-            self,
-            league_id=constants.League.Default,
-            season=constants.CURRENT_SEASON):
+    def __init__(self, league_id=League.Default, season=CURRENT_SEASON):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'LeagueID': league_id,
                                       'SeasonYear': season})

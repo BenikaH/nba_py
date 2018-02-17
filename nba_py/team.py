@@ -1,12 +1,12 @@
 from nba_py import _api_scrape, _get_json
-from nba_py import constants
+from nba_py.constants import *
 
 
 class TeamList:
     _endpoint = 'commonteamyears'
 
     def __init__(self,
-                 league_id=constants.League.NBA):
+                 league_id=League.NBA):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'LeagueID': league_id})
 
@@ -19,9 +19,9 @@ class TeamSummary:
 
     def __init__(self,
                  team_id,
-                 season=constants.CURRENT_SEASON,
-                 league_id=constants.League.NBA,
-                 season_type=constants.SeasonType.Default):
+                 season=CURRENT_SEASON,
+                 league_id=League.NBA,
+                 season_type=SeasonType.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'TeamID': team_id,
                                       'Season': season,
@@ -72,7 +72,7 @@ class TeamCommonRoster:
 
     def __init__(self,
                  team_id,
-                 season=constants.CURRENT_SEASON):
+                 season=CURRENT_SEASON):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'TeamID': team_id,
                                       'Season': season})
@@ -89,28 +89,28 @@ class _TeamDashboard:
 
     def __init__(self,
                  team_id,
-                 measure_type=constants.MeasureType.Default,
-                 per_mode=constants.PerMode.Default,
-                 plus_minus=constants.PlusMinus.Default,
-                 pace_adjust=constants.PaceAdjust.Default,
-                 rank=constants.Rank.Default,
-                 league_id=constants.League.Default,
-                 season=constants.CURRENT_SEASON,
-                 season_type=constants.SeasonType.Default,
-                 po_round=constants.PlayoffRound.Default,
-                 outcome=constants.Outcome.Default,
-                 location=constants.Location.Default,
-                 month=constants.Month.Default,
-                 season_segment=constants.SeasonSegment.Default,
-                 date_from=constants.DateFrom.Default,
-                 date_to=constants.DateTo.Default,
-                 opponent_team_id=constants.OpponentTeamID.Default,
-                 vs_conference=constants.VsConference.Default,
-                 vs_division=constants.VsDivision.Default,
-                 game_segment=constants.GameSegment.Default,
-                 period=constants.Period.Default,
-                 shot_clock_range=constants.ShotClockRange.Default,
-                 last_n_games=constants.LastNGames.Default):
+                 measure_type=MeasureType.Default,
+                 per_mode=PerMode.Default,
+                 plus_minus=PlusMinus.Default,
+                 pace_adjust=PaceAdjust.Default,
+                 rank=Rank.Default,
+                 league_id=League.Default,
+                 season=CURRENT_SEASON,
+                 season_type=SeasonType.Default,
+                 po_round=PlayoffRound.Default,
+                 outcome=Outcome.Default,
+                 location=Location.Default,
+                 month=Month.Default,
+                 season_segment=SeasonSegment.Default,
+                 date_from=DateFrom.Default,
+                 date_to=DateTo.Default,
+                 opponent_team_id=OpponentTeamID.Default,
+                 vs_conference=VsConference.Default,
+                 vs_division=VsDivision.Default,
+                 game_segment=GameSegment.Default,
+                 period=Period.Default,
+                 shot_clock_range=ShotClockRange.Default,
+                 last_n_games=LastNGames.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'TeamID': team_id,
                                       'MeasureType': measure_type,
@@ -169,7 +169,7 @@ class TeamOpponentSplits(_TeamDashboard):
         return _api_scrape(self.json, 2)
 
     def by_opponent(self):
-        return _api_scrape(self.json, 3)
+        return _api_scrape(self.json, 2)
 
 
 class TeamLastNGamesSplits(_TeamDashboard):
@@ -292,7 +292,7 @@ class TeamShootingSplits(_TeamDashboard):
     def shot_type_summary(self):
         return _api_scrape(self.json, 5)
 
-    def assisted_by(self):
+    def assissted_by(self):
         return _api_scrape(self.json, 6)
 
 
@@ -322,26 +322,26 @@ class TeamLineups:
     def __init__(self,
                  team_id,
                  game_id='',
-                 group_quantity=constants.GroupQuantity.Default,
-                 season=constants.CURRENT_SEASON,
-                 season_type=constants.SeasonType.Default,
-                 measure_type=constants.MeasureType.Default,
-                 per_mode=constants.PerMode.Default,
-                 plus_minus=constants.PlusMinus.Default,
-                 pace_adjust=constants.PaceAdjust.Default,
-                 rank=constants.Rank.Default,
-                 outcome=constants.Outcome.Default,
-                 location=constants.Location.Default,
-                 month=constants.Month.Default,
-                 season_segment=constants.SeasonSegment.Default,
-                 date_from=constants.DateFrom.Default,
-                 date_to=constants.DateTo.Default,
-                 opponent_team_id=constants.OpponentTeamID.Default,
-                 vs_conference=constants.VsConference.Default,
-                 vs_division=constants.VsDivision.Default,
-                 game_segment=constants.GameSegment.Default,
-                 period=constants.Period.Default,
-                 last_n_games=constants.LastNGames.Default):
+                 group_quantity=GroupQuantity.Default,
+                 season=CURRENT_SEASON,
+                 season_type=SeasonType.Default,
+                 measure_type=MeasureType.Default,
+                 per_mode=PerMode.Default,
+                 plus_minus=PlusMinus.Default,
+                 pace_adjust=PaceAdjust.Default,
+                 rank=Rank.Default,
+                 outcome=Outcome.Default,
+                 location=Location.Default,
+                 month=Month.Default,
+                 season_segment=SeasonSegment.Default,
+                 date_from=DateFrom.Default,
+                 date_to=DateTo.Default,
+                 opponent_team_id=OpponentTeamID.Default,
+                 vs_conference=VsConference.Default,
+                 vs_division=VsDivision.Default,
+                 game_segment=GameSegment.Default,
+                 period=Period.Default,
+                 last_n_games=LastNGames.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'GroupQuantity': group_quantity,
                                       'GameID': game_id,
@@ -405,8 +405,8 @@ class TeamGameLogs:
 
     def __init__(self,
                  team_id,
-                 season=constants.CURRENT_SEASON,
-                 season_type=constants.SeasonType.Default):
+                 season=CURRENT_SEASON,
+                 season_type=SeasonType.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'TeamID': team_id,
                                       'Season': season,
@@ -421,9 +421,9 @@ class TeamSeasons:
 
     def __init__(self,
                  team_id,
-                 league_id=constants.League.NBA,
-                 season_type=constants.SeasonType.Default,
-                 per_mode=constants.PerMode.Default):
+                 league_id=League.NBA,
+                 season_type=SeasonType.Default,
+                 per_mode=PerMode.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'TeamID': team_id,
                                       'LeagueID': league_id,
@@ -485,28 +485,28 @@ class TeamVsPlayer:
     def __init__(self,
                  team_id,
                  vs_player_id,
-                 measure_type=constants.MeasureType.Default,
-                 per_mode=constants.PerMode.Default,
-                 plus_minus=constants.PlusMinus.Default,
-                 pace_adjust=constants.PaceAdjust.Default,
-                 rank=constants.Rank.Default,
-                 league_id=constants.League.Default,
-                 season=constants.CURRENT_SEASON,
-                 season_type=constants.SeasonType.Default,
-                 po_round=constants.PlayoffRound.Default,
-                 outcome=constants.Outcome.Default,
-                 location=constants.Location.Default,
-                 month=constants.Month.Default,
-                 season_segment=constants.SeasonSegment.Default,
-                 date_from=constants.DateFrom.Default,
-                 date_to=constants.DateTo.Default,
-                 opponent_team_id=constants.OpponentTeamID.Default,
-                 vs_conference=constants.VsConference.Default,
-                 vs_division=constants.VsDivision.Default,
-                 game_segment=constants.GameSegment.Default,
-                 period=constants.Period.Default,
-                 shot_clock_range=constants.ShotClockRange.Default,
-                 last_n_games=constants.LastNGames.Default):
+                 measure_type=MeasureType.Default,
+                 per_mode=PerMode.Default,
+                 plus_minus=PlusMinus.Default,
+                 pace_adjust=PaceAdjust.Default,
+                 rank=Rank.Default,
+                 league_id=League.Default,
+                 season=CURRENT_SEASON,
+                 season_type=SeasonType.Default,
+                 po_round=PlayoffRound.Default,
+                 outcome=Outcome.Default,
+                 location=Location.Default,
+                 month=Month.Default,
+                 season_segment=SeasonSegment.Default,
+                 date_from=DateFrom.Default,
+                 date_to=DateTo.Default,
+                 opponent_team_id=OpponentTeamID.Default,
+                 vs_conference=VsConference.Default,
+                 vs_division=VsDivision.Default,
+                 game_segment=GameSegment.Default,
+                 period=Period.Default,
+                 shot_clock_range=ShotClockRange.Default,
+                 last_n_games=LastNGames.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'TeamID': team_id,
                                       'VsPlayerID': vs_player_id,

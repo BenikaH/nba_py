@@ -1,10 +1,4 @@
-from datetime import datetime
-
-_curr_year = datetime.now().year
-if datetime.now().month > 6:
-    CURRENT_SEASON = str(_curr_year) + "-" + str(_curr_year + 1)[2:]
-else:
-    CURRENT_SEASON = str(_curr_year - 1) + "-" + str(_curr_year)[2:]
+CURRENT_SEASON = '2016-17'
 
 TEAMS = {
     'ATL': {
@@ -419,10 +413,19 @@ class MeasureType:
     Usage = 'Usage'
     Default = Base
 
-
 class PtMeasureType:
     SpeedDistance = 'SpeedDistance'
-
+    Drives = 'Drives'
+    Defense = 'Defense'
+    CatchShoot = 'CatchShoot'
+    Passing = 'Passing'
+    Possessions = 'Possessions'
+    PullUpShot = 'PullUpShot'
+    Rebounding = 'Rebounding'
+    Efficiency = 'Efficiency'
+    ElbowTouch = 'ElbowTouch'
+    PostTouch = 'PostTouch'
+    PaintTouch = 'PaintTouch'
 
 class GroupQuantity:
     Default = 5
@@ -614,8 +617,7 @@ class StatCategory:
 
 
 class ContextMeasure:
-    # Not sure if this is mapped correctly. Source:
-    # https://github.com/bradleyfay/NBAStats
+    # Not sure if this is mapped correctly. Source: https://github.com/bradleyfay/NBAStats
     FGM = 'FGM'
     FGA = 'FGA'
     FG_PCT = 'FG_PCT'
