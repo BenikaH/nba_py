@@ -98,6 +98,204 @@ class PlayerSummary:
         return _api_scrape(self.json, 1)
 
 
+class PlayerNextNGames:
+    """
+    Contains information about upcoming games for a player
+
+    Args:
+        :player_id: ID of the player to look up
+        :number_of_games:  Number of future games to look up
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+        
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playernextngames'
+
+    def __init__(self,
+                 player_id,
+                 number_of_games,
+                 season=CURRENT_SEASON,
+                 season_type=SeasonType.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id,
+                                      'NumberOfGames': number_of_games,
+                                      'Season': season,
+                                      'SeasonType': season_type})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+
+class PlayerFantasyProfileBarGraph:
+    """
+    Fantasy information that can be presented in bar graphs
+
+    Args:
+        :player_id: ID of the player to look up
+        :season: Season given to look up
+        
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playerfantasyprofilebargraph'
+
+    def __init__(self,
+                 player_id,
+                 season=CURRENT_SEASON):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id,
+                                      'Season': season})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+    def last_five_games(self):
+        return _api_scrape(self.json, 1)
+
+
+class PlayerFantasyProfile:
+    """
+    Contains fantasy player information
+
+    Args:
+        :player_id: ID of the player to look up
+        :measure_type: Specifies type of measure to use (Base, Advanced, etc.)
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :plus_minus: Whether or not to consider plus minus (Y or N)
+        :pace_adjust: Whether or not to pace adjust stats (Y or N)
+        :rank: Whether or not to consider rank (Y or N)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+        
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playerfantasyprofile'
+
+    def __init__(self,
+                 player_id,
+                 measure_type=MeasureType.Default,
+                 per_mode=PerMode.Default,
+                 plus_minus=PlusMinus.Default,
+                 pace_adjust=PaceAdjust.Default,
+                 rank=PaceAdjust.Default,
+                 season=CURRENT_SEASON,
+                 season_type=SeasonType.Default,):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id,
+                                      'MeasureType': measure_type,
+                                      'PerMode': per_mode,
+                                      'PlusMinus': plus_minus,
+                                      'PaceAdjust': pace_adjust,
+                                      'Rank': rank,
+                                      'Season': season,
+                                      'SeasonType': season_type})
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+    
+    def location(self):
+        return _api_scrape(self.json, 1)
+    
+    def LastNGames(self):
+        return _api_scrape(self.json, 2)
+    
+    def DaysRestModified(self):
+        return _api_scrape(self.json, 3)
+    
+    def Opponent(self):
+        return _api_scrape(self.json, 4)
+    
+    
+class PlayerCareerByCollegeRollup:
+    """
+    Contains division 1 college team totals sorted by previous year's tournament seeding
+
+    Args:
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :league_id: ID for the league to look in (Default is 00)
+        :season_type: Season type to consider (Regular / Playoffs)
+        
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playercareerbycollegerollup'
+
+    def __init__(self,
+                 per_mode=PerMode.Default,
+                 league_id=League.Default,
+                 season_type=SeasonType.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PerMode': per_mode,
+                                      'LeagueID': league_id,
+                                      'SeasonType': season_type})
+
+    def east(self):
+        return _api_scrape(self.json, 0)
+
+    def south(self):
+        return _api_scrape(self.json, 1)
+
+    def midwest(self):
+        return _api_scrape(self.json, 2)
+
+    def west(self):
+        return _api_scrape(self.json, 3)
+    
+    
+class PlayerCareerByCollege:
+    """
+    Contains a list of nba players and their nba statistics grouped by their college
+    
+    Args:
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :league_id: ID for the league to look in (Default is 00)
+        :season_type: Season type to consider (Regular / Playoffs)
+        :college: which college the player attended (Duke, UCLA etc.)
+        
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playercareerbycollege'
+
+    def __init__(self,
+                 per_mode=PerMode.Default,
+                 league_id=League.Default,
+                 season_type=SeasonType.Default,
+                 college=0):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PerMode': per_mode,
+                                      'LeagueID': league_id,
+                                      'SeasonType': season_type,
+                                      'College': college})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+    
+    
+class PlayerAwards:
+    """
+    Contains information on all awards given to a player (player_id)
+
+    Args:
+        :player_id: ID of the player to look up
+        
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playerawards'
+
+    def __init__(self,
+                 player_id):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+
 class _PlayerDashboard:
     """
     Has all the basic arguments for all of the Player Dashboard type objects
