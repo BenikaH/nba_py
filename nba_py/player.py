@@ -107,7 +107,7 @@ class PlayerNextNGames:
         :number_of_games:  Number of future games to look up
         :season: Season given to look up
         :season_type: Season type to consider (Regular / Playoffs)
-        
+
     Attributes:
         :json: Contains the full json dump to play around with
     """
@@ -116,8 +116,8 @@ class PlayerNextNGames:
     def __init__(self,
                  player_id,
                  number_of_games,
-                 season=CURRENT_SEASON,
-                 season_type=SeasonType.Default):
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'PlayerID': player_id,
                                       'NumberOfGames': number_of_games,
@@ -135,7 +135,7 @@ class PlayerFantasyProfileBarGraph:
     Args:
         :player_id: ID of the player to look up
         :season: Season given to look up
-        
+
     Attributes:
         :json: Contains the full json dump to play around with
     """
@@ -143,7 +143,7 @@ class PlayerFantasyProfileBarGraph:
 
     def __init__(self,
                  player_id,
-                 season=CURRENT_SEASON):
+                 season=constants.CURRENT_SEASON):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'PlayerID': player_id,
                                       'Season': season})
@@ -168,7 +168,7 @@ class PlayerFantasyProfile:
         :rank: Whether or not to consider rank (Y or N)
         :season: Season given to look up
         :season_type: Season type to consider (Regular / Playoffs)
-        
+
     Attributes:
         :json: Contains the full json dump to play around with
     """
@@ -176,13 +176,13 @@ class PlayerFantasyProfile:
 
     def __init__(self,
                  player_id,
-                 measure_type=MeasureType.Default,
-                 per_mode=PerMode.Default,
-                 plus_minus=PlusMinus.Default,
-                 pace_adjust=PaceAdjust.Default,
-                 rank=PaceAdjust.Default,
-                 season=CURRENT_SEASON,
-                 season_type=SeasonType.Default,):
+                 measure_type=constants.MeasureType.Default,
+                 per_mode=constants.PerMode.Default,
+                 plus_minus=constants.PlusMinus.Default,
+                 pace_adjust=constants.PaceAdjust.Default,
+                 rank=constants.PaceAdjust.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default,):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'PlayerID': player_id,
                                       'MeasureType': measure_type,
@@ -195,38 +195,38 @@ class PlayerFantasyProfile:
 
     def overall(self):
         return _api_scrape(self.json, 0)
-    
+
     def location(self):
         return _api_scrape(self.json, 1)
-    
+
     def LastNGames(self):
         return _api_scrape(self.json, 2)
-    
+
     def DaysRestModified(self):
         return _api_scrape(self.json, 3)
-    
+
     def Opponent(self):
         return _api_scrape(self.json, 4)
-    
-    
+
+
 class PlayerCareerByCollegeRollup:
     """
-    Contains division 1 college team totals sorted by previous year's tournament seeding
+    Contains div1 college team totals sorted by last year's seeding
 
     Args:
         :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
         :league_id: ID for the league to look in (Default is 00)
         :season_type: Season type to consider (Regular / Playoffs)
-        
+
     Attributes:
         :json: Contains the full json dump to play around with
     """
     _endpoint = 'playercareerbycollegerollup'
 
     def __init__(self,
-                 per_mode=PerMode.Default,
-                 league_id=League.Default,
-                 season_type=SeasonType.Default):
+                 per_mode=constants.PerMode.Default,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'PerMode': per_mode,
                                       'LeagueID': league_id,
@@ -243,27 +243,27 @@ class PlayerCareerByCollegeRollup:
 
     def west(self):
         return _api_scrape(self.json, 3)
-    
-    
+
+
 class PlayerCareerByCollege:
     """
-    Contains a list of nba players and their nba statistics grouped by their college
-    
+    Contains list of nba players and their nba stats grouped by their college
+
     Args:
         :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
         :league_id: ID for the league to look in (Default is 00)
         :season_type: Season type to consider (Regular / Playoffs)
         :college: which college the player attended (Duke, UCLA etc.)
-        
+
     Attributes:
         :json: Contains the full json dump to play around with
     """
     _endpoint = 'playercareerbycollege'
 
     def __init__(self,
-                 per_mode=PerMode.Default,
-                 league_id=League.Default,
-                 season_type=SeasonType.Default,
+                 per_mode=constants.PerMode.Default,
+                 league_id=constants.League.Default,
+                 season_type=constants.SeasonType.Default,
                  college=0):
         self.json = _get_json(endpoint=self._endpoint,
                               params={'PerMode': per_mode,
@@ -273,15 +273,15 @@ class PlayerCareerByCollege:
 
     def info(self):
         return _api_scrape(self.json, 0)
-    
-    
+
+
 class PlayerAwards:
     """
     Contains information on all awards given to a player (player_id)
 
     Args:
         :player_id: ID of the player to look up
-        
+
     Attributes:
         :json: Contains the full json dump to play around with
     """
