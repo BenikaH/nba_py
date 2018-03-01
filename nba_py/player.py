@@ -97,6 +97,417 @@ class PlayerSummary:
         return _api_scrape(self.json, 1)
 
 
+class PlayerNextNGames:
+    """
+    Contains information about upcoming games for a player
+
+    Args:
+        :player_id: ID of the player to look up
+        :number_of_games:  Number of future games to look up
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playernextngames'
+
+    def __init__(self,
+                 player_id,
+                 number_of_games,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id,
+                                      'NumberOfGames': number_of_games,
+                                      'Season': season,
+                                      'SeasonType': season_type})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+
+class PlayerFantasyBarGraph:
+    """
+    Fantasy information that can be presented in bar graphs
+
+    Args:
+        :player_id: ID of the player to look up
+        :league_id: ID for the league to look in (Default is 00)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playerfantasyprofilebargraph'
+
+    def __init__(self,
+                 player_id,
+                 league_id=constants.League.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id,
+                                      'LeagueID': league_id,
+                                      'Season': season,
+                                      'SeasonType': season_type})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+    def last_five_games(self):
+        return _api_scrape(self.json, 1)
+
+
+class PlayerFantasyProfile:
+    """
+    Contains fantasy player information
+
+    Args:
+        :player_id: ID of the player to look up
+        :league_id: ID for the league to look in (Default is 00)
+        :measure_type: Specifies type of measure to use (Base, Advanced, etc.)
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :plus_minus: Whether or not to consider plus minus (Y or N)
+        :pace_adjust: Whether or not to pace adjust stats (Y or N)
+        :rank: Whether or not to consider rank (Y or N)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playerfantasyprofile'
+
+    def __init__(self,
+                 player_id,
+                 league_id=constants.League.Default,
+                 measure_type=constants.MeasureType.Default,
+                 per_mode=constants.PerMode.Default,
+                 plus_minus=constants.PlusMinus.Default,
+                 pace_adjust=constants.PaceAdjust.Default,
+                 rank=constants.PaceAdjust.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default,):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id,
+                                      'LeagueID': league_id,
+                                      'MeasureType': measure_type,
+                                      'PerMode': per_mode,
+                                      'PlusMinus': plus_minus,
+                                      'PaceAdjust': pace_adjust,
+                                      'Rank': rank,
+                                      'Season': season,
+                                      'SeasonType': season_type})
+
+    def overall(self):
+        return _api_scrape(self.json, 0)
+
+    def location(self):
+        return _api_scrape(self.json, 1)
+
+    def LastNGames(self):
+        return _api_scrape(self.json, 2)
+
+    def DaysRestModified(self):
+        return _api_scrape(self.json, 3)
+
+    def Opponent(self):
+        return _api_scrape(self.json, 4)
+
+
+class PlayerCareerByCollegeRollup:
+    """
+    Contains div1 college team totals sorted by last year's seeding
+
+    Args:
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :league_id: ID for the league to look in (Default is 00)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playercareerbycollegerollup'
+
+    def __init__(self,
+                 per_mode=constants.PerMode.Default,
+                 league_id=constants.League.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PerMode': per_mode,
+                                      'LeagueID': league_id,
+                                      'Season': season,
+                                      'SeasonType': season_type})
+
+    def east(self):
+        return _api_scrape(self.json, 0)
+
+    def south(self):
+        return _api_scrape(self.json, 1)
+
+    def midwest(self):
+        return _api_scrape(self.json, 2)
+
+    def west(self):
+        return _api_scrape(self.json, 3)
+
+
+class PlayerCareerByCollege:
+    """
+    Contains list of nba players and their nba stats grouped by their college
+
+    Args:
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :league_id: ID for the league to look in (Default is 00)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular / Playoffs)
+        :college: which college the player attended (Duke, UCLA etc.)
+
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playercareerbycollege'
+
+    def __init__(self,
+                 per_mode=constants.PerMode.Default,
+                 league_id=constants.League.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default,
+                 college=0):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PerMode': per_mode,
+                                      'LeagueID': league_id,
+                                      'Season': season,
+                                      'SeasonType': season_type,
+                                      'College': college})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+
+class PlayerAwards:
+    """
+    Contains information on all awards given to a player (player_id)
+
+    Args:
+        :player_id: ID of the player to look up
+
+    Attributes:
+        :json: Contains the full json dump to play around with
+    """
+    _endpoint = 'playerawards'
+
+    def __init__(self,
+                 player_id):
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PlayerID': player_id})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+
+class PlayerHustleLeaders:
+    """
+    Contains league leading hustle stats by player
+
+    Args:
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :league_id: ID for the league to look in (Default is 00)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular or Playoffs)
+        :playoff_round: Playoff round
+        :outcome: Filter out by wins or losses
+        :location: Filter out by home or away
+        :month: Specify month to filter by
+        :season_segment: Filter by pre/post all star break
+        :date_from: Filter out games before a specific date
+        :date_to: Filter out games after a specific date
+        :opponent_team_id: Opponent team ID to look up
+        :vs_conference: Filter by conference
+        :vs_division: Filter by division
+        :team_id: ID of the team to look up
+        :conference: Filter by conference
+        :division: Filter by division
+        :player_experience: Player experience (Rookie
+        :player_position: Filter by position (Forward
+        :draft_year: Filter by draft year
+        :draft_pick: Filter by draft pick (1st+Round, Lottery+Pick, etc.)
+        :college: Filter by college
+        :country: Filter by country
+        :height: Filter by player's height
+        :weight: Filter by player's weight
+    """
+
+    _endpoint = 'leaguehustlestatsplayerleaders'
+
+    def __init__(self,
+                 per_mode=constants.PerMode.Default,
+                 league_id=constants.League.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PerMode': per_mode,
+                                      'LeagueID': league_id,
+                                      'Season': season,
+                                      'SeasonType': season_type,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight})
+
+    def contested_shots(self):
+        return _api_scrape(self.json, 0)
+
+    def charges_drawn(self):
+        return _api_scrape(self.json, 1)
+
+    def deflections(self):
+        return _api_scrape(self.json, 2)
+
+    def loose_balls(self):
+        return _api_scrape(self.json, 3)
+
+    def screen_assists(self):
+        return _api_scrape(self.json, 4)
+
+
+class PlayerHustleStats:
+    """
+    Contains hustle stats by player
+
+    Args:
+        :per_mode: Mode to measure statistics (Totals, PerGame, Per36, etc.)
+        :league_id: ID for the league to look in (Default is 00)
+        :season: Season given to look up
+        :season_type: Season type to consider (Regular or Playoffs)
+        :playoff_round: Playoff round
+        :outcome: Filter out by wins or losses
+        :location: Filter out by home or away
+        :month: Specify month to filter by
+        :season_segment: Filter by pre/post all star break
+        :date_from: Filter out games before a specific date
+        :date_to: Filter out games after a specific date
+        :opponent_team_id: Opponent team ID to look up
+        :vs_conference: Filter by conference
+        :vs_division: Filter by division
+        :team_id: ID of the team to look up
+        :conference: Filter by conference
+        :division: Filter by division
+        :player_experience: Player experience (Rookie
+        :player_position: Filter by position (Forward
+        :draft_year: Filter by draft year
+        :draft_pick: Filter by draft pick (1st+Round, Lottery+Pick, etc.)
+        :college: Filter by college
+        :country: Filter by country
+        :height: Filter by player's height
+        :weight: Filter by player's weight
+    """
+
+    _endpoint = 'leaguehustlestatsplayer'
+
+    def __init__(self,
+                 per_mode=constants.PerMode.Default,
+                 league_id=constants.League.Default,
+                 season=constants.CURRENT_SEASON,
+                 season_type=constants.SeasonType.Default,
+                 playoff_round=constants.PlayoffRound.Default,
+                 outcome=constants.Outcome.Default,
+                 location=constants.Location.Default,
+                 month=constants.Month.Default,
+                 season_segment=constants.SeasonSegment.Default,
+                 date_from=constants.DateFrom.Default,
+                 date_to=constants.DateTo.Default,
+                 opponent_team_id=constants.OpponentTeamID.Default,
+                 vs_conference=constants.VsConference.Default,
+                 vs_division=constants.VsDivision.Default,
+                 team_id=constants.TeamID.Default,
+                 conference=constants.Conference.Default,
+                 division=constants.Division.Default,
+                 player_experience=constants.PlayerExperience.Default,
+                 player_position=constants.PlayerPosition.Default,
+                 draft_year=constants.DraftYear.Default,
+                 draft_pick=constants.DraftPick.Default,
+                 college=constants.College.Default,
+                 country=constants.Country.Default,
+                 height=constants.Height.Default,
+                 weight=constants.Weight.Default
+                 ):
+
+        self.json = _get_json(endpoint=self._endpoint,
+                              params={'PerMode': per_mode,
+                                      'LeagueID': league_id,
+                                      'Season': season,
+                                      'SeasonType': season_type,
+                                      'PORound': playoff_round,
+                                      'Outcome': outcome,
+                                      'Location': location,
+                                      'Month': month,
+                                      'SeasonSegment': season_segment,
+                                      'DateFrom': date_from,
+                                      'DateTo': date_to,
+                                      'OpponentTeamID': opponent_team_id,
+                                      'VsConference': vs_conference,
+                                      'VsDivision': vs_division,
+                                      'TeamID': team_id,
+                                      'Conference': conference,
+                                      'Division': division,
+                                      'PlayerExperience': player_experience,
+                                      'PlayerPosition': player_position,
+                                      'DraftYear': draft_year,
+                                      'DraftPick': draft_pick,
+                                      'College': college,
+                                      'Country': country,
+                                      'Height': height,
+                                      'Weight': weight})
+
+    def info(self):
+        return _api_scrape(self.json, 0)
+
+
 class _PlayerDashboard:
     """
     Has all the basic arguments for all of the Player Dashboard type objects
