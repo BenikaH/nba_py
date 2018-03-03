@@ -1,4 +1,4 @@
-from nba_py import _api_scrape, _get_json, HAS_PANDAS
+from nba_py import _api_scrape, _get_json, HAS_PANDAS, constants
 from nba_py.constants import *
 
 

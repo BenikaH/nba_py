@@ -1,4 +1,4 @@
-from nba_py import _api_scrape, _get_json
+from nba_py import _api_scrape, _get_json, constants
 from nba_py.constants import *
 
 
